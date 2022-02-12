@@ -1,11 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Tools.RotationOrder
 {
+    [Serializable]
     public struct Euler
     {
-        public const RotationOrder DEFAULT_ROTATION_ORDER = RotationOrder.ZXY;
-
         public enum RotationOrder
         {
             XYZ,
@@ -22,7 +22,7 @@ namespace Tools.RotationOrder
 
         public RotationOrder rotationOrder;
 
-        public Euler(float x, float y, float z, RotationOrder rotationOrder = DEFAULT_ROTATION_ORDER)
+        public Euler(float x, float y, float z, RotationOrder rotationOrder)
         {
             this.x = x;
             this.y = y;
@@ -31,7 +31,7 @@ namespace Tools.RotationOrder
             this.rotationOrder = rotationOrder;
         }
 
-        public Euler(RotationOrder rotationOrder = DEFAULT_ROTATION_ORDER)
+        public Euler(RotationOrder rotationOrder)
         {
             x = 0f;
             y = 0f;
@@ -338,14 +338,14 @@ namespace Tools.RotationOrder
             return rotationMatrix;
         }
 
-        public static Euler FromRotationMatrix (Matrix4x4 rotationMatrix, RotationOrder rotationOrder = DEFAULT_ROTATION_ORDER)
+        public static Euler FromRotationMatrix (Matrix4x4 rotationMatrix, RotationOrder rotationOrder)
         {
             var euler = new Euler(rotationOrder);
             euler.SetFromRotationMatrix(rotationMatrix);
             return euler;
         }
 
-        public static Euler FromQuaternion(Quaternion quaternion, RotationOrder rotationOrder = DEFAULT_ROTATION_ORDER)
+        public static Euler FromQuaternion(Quaternion quaternion, RotationOrder rotationOrder)
         {
             var euler = new Euler(rotationOrder);
             euler.SetFromQuaternion(quaternion);
