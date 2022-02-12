@@ -3,22 +3,45 @@ using UnityEngine;
 
 namespace Tools.RotationOrder.Example
 {
+    // This could be a Scriptable Object but since it is a part of a example, there is no need to clutter the unity Assets menu.
     public class Settings : MonoBehaviour
     {
-        [SerializeField] private Axis _xAxis = new Axis();
-        [SerializeField] private Axis _yAxis = new Axis();
-        [SerializeField] private Axis _zAxis = new Axis();
-        [SerializeField] private Axis _wAxis = new Axis();
+        public enum InputFieldType
+        {
+            AxisX,
+            AxisY,
+            AxisZ,
+            AxisW,
+            Angle
+        }
 
-        public Axis xAxis => _xAxis;
-        public Axis yAxis => _yAxis;
-        public Axis zAxis => _zAxis;
-        public Axis wAxis => _wAxis;
+        [SerializeField] private InputFieldData _xAxis = new InputFieldData();
+        [SerializeField] private InputFieldData _yAxis = new InputFieldData();
+        [SerializeField] private InputFieldData _zAxis = new InputFieldData();
+        [SerializeField] private InputFieldData _wAxis = new InputFieldData();
+        [SerializeField] private InputFieldData _angle = new InputFieldData();
+
+        public InputFieldData GetInputFieldDataFromType (InputFieldType inputFieldType)
+        {
+            switch (inputFieldType)
+            {
+                case InputFieldType.AxisX:
+                    return _xAxis;
+                case InputFieldType.AxisY:
+                    return _yAxis;
+                case InputFieldType.AxisZ:
+                    return _zAxis;
+                case InputFieldType.AxisW:
+                    return _wAxis;
+                default: // Angle
+                    return _angle;
+            }
+        }
 
         [Serializable]
-        public struct Axis
+        public struct InputFieldData
         {
-            public char name;
+            public string name;
             public Color color;
         }
     }

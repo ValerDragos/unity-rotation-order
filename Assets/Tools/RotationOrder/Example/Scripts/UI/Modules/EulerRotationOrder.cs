@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Tools.RotationOrder.Example
 {
@@ -13,9 +12,8 @@ namespace Tools.RotationOrder.Example
 
         [SerializeField] private Settings _settings = null;
         [SerializeField] private TMP_Dropdown _dropDown = null;
-        [SerializeField] private Toggle _toggle = null;
 
-        public Action<Euler.RotationOrder, bool> OnValueChanged;
+        public Action<Euler.RotationOrder> OnValueChanged;
 
         private Euler.RotationOrder _value = Euler.RotationOrder.XYZ;
         public Euler.RotationOrder value
@@ -24,7 +22,7 @@ namespace Tools.RotationOrder.Example
             set
             {
                 SetValueWithoutNotify(value);
-                OnValueChanged?.Invoke(value, _toggle.isOn);
+                OnValueChanged?.Invoke(value);
             }
         }
 
@@ -38,9 +36,9 @@ namespace Tools.RotationOrder.Example
         {
             var options = new List<string>(6);
 
-            string xString = GetFormattedString(_settings.xAxis);
-            string yString = GetFormattedString(_settings.yAxis);
-            string zString = GetFormattedString(_settings.zAxis);
+            string xString = GetFormattedString(_settings.GetInputFieldDataFromType(Settings.InputFieldType.AxisX));
+            string yString = GetFormattedString(_settings.GetInputFieldDataFromType(Settings.InputFieldType.AxisY));
+            string zString = GetFormattedString(_settings.GetInputFieldDataFromType(Settings.InputFieldType.AxisZ));
 
             options.Add(string.Format(OPTION_PATTERN, xString, yString, zString));
             options.Add(string.Format(OPTION_PATTERN, xString, zString, yString));
@@ -59,10 +57,10 @@ namespace Tools.RotationOrder.Example
             var newValue = (Euler.RotationOrder)intValue;
             if (newValue == value) return;
             _value = newValue;
-            OnValueChanged?.Invoke(newValue, _toggle.isOn);
+            OnValueChanged?.Invoke(newValue);
         }
 
-        private string GetFormattedString (Settings.Axis axisData)
+        private string GetFormattedString (Settings.InputFieldData axisData)
         {
             return string.Format(AXIS_PATTERN, ColorUtility.ToHtmlStringRGBA(axisData.color), axisData.name);
         }

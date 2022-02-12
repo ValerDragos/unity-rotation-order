@@ -44,14 +44,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _xAxis:
-    name: 88
+    name: X
     color: {r: 1, g: 0.78431374, b: 0.78431374, a: 1}
   _yAxis:
-    name: 89
+    name: Y
     color: {r: 0.78431374, g: 1, b: 0.78431374, a: 1}
   _zAxis:
-    name: 90
+    name: Z
     color: {r: 0.78431374, g: 0.78431374, b: 1, a: 1}
   _wAxis:
-    name: 87
+    name: W
     color: {r: 1, g: 0.88958925, b: 0.78431374, a: 1}
+  _angle:
+    name: Angle
+    color: {r: 1, g: 0.8901961, b: 0.78431374, a: 1}

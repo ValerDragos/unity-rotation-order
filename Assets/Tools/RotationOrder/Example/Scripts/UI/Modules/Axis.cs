@@ -17,7 +17,7 @@ namespace Tools.RotationOrder.Example.UI
             set
             {
                 SetValueWithoutNotify(value);
-                OnValueChanged?.Invoke(this);
+                CallOnValueChanged();
             }
         }
 
@@ -38,8 +38,7 @@ namespace Tools.RotationOrder.Example.UI
             _slider.onValueChanged.AddListener((value) =>
             {
                 _floatInputField.SetValueWithoutNotify(value);
-
-                OnValueChanged?.Invoke(this);
+                CallOnValueChanged();
             });
         }
 
@@ -48,7 +47,7 @@ namespace Tools.RotationOrder.Example.UI
             value = FormatValue(value);
             _slider.SetValueWithoutNotify(value);
 
-            OnValueChanged?.Invoke(this);
+            CallOnValueChanged();
         }
 
         public void SetValueWithoutNotify (float value)
@@ -61,6 +60,11 @@ namespace Tools.RotationOrder.Example.UI
         private float FormatValue (float value)
         {
             return value % FULL_ROTATION_EULER;
+        }
+
+        private void CallOnValueChanged()
+        {
+            OnValueChanged?.Invoke(this);
         }
     }
 }

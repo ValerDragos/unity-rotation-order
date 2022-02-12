@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6794963408770639720}
   m_Layer: 5
-  m_Name: Axis ReadOnly
+  m_Name: Axis
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -303,31 +303,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3733583208842071783, guid: 80adf2cf9fe10aa47987955a38ab25dd,
-        type: 3}
-      propertyPath: m_fontColor.b
-      value: 0.74509805
-      objectReference: {fileID: 0}
-    - target: {fileID: 3733583208842071783, guid: 80adf2cf9fe10aa47987955a38ab25dd,
-        type: 3}
-      propertyPath: m_fontColor.g
-      value: 0.74509805
-      objectReference: {fileID: 0}
-    - target: {fileID: 3733583208842071783, guid: 80adf2cf9fe10aa47987955a38ab25dd,
-        type: 3}
-      propertyPath: m_fontColor.r
-      value: 0.74509805
-      objectReference: {fileID: 0}
-    - target: {fileID: 3733583208842071783, guid: 80adf2cf9fe10aa47987955a38ab25dd,
-        type: 3}
-      propertyPath: m_fontColor32.rgba
-      value: 4290690750
-      objectReference: {fileID: 0}
-    - target: {fileID: 4704431010944136876, guid: 80adf2cf9fe10aa47987955a38ab25dd,
-        type: 3}
-      propertyPath: m_ReadOnly
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80adf2cf9fe10aa47987955a38ab25dd, type: 3}

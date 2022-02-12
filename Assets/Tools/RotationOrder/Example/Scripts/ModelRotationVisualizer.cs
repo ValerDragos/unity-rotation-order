@@ -15,51 +15,46 @@ namespace Tools.RotationOrder.Example
         [SerializeField] private AxisHandler _yAxis = null;
         [SerializeField] private AxisHandler _zAxis = null;
 
-        public RotationData rotationData { get; private set; }
+        public Euler euler { get; private set; }
 
         private Coroutine _animateShowOrderCoroutine = null;
 
         private void Awake()
         {
-            _xAxis.SetActive();
-            _yAxis.SetActive();
-            _zAxis.SetActive();
+            SetAxisActiveVisuals();
         }
 
-        public void Set(RotationData rotationData)
+        public void SetEuler(Euler euler)
         {
-            this.rotationData = rotationData;
-            _modelTransform.rotation = rotationData.quaternion;
+            if (StopAnimateShowOrderCoroutine())
+            {
+                SetAxisActiveVisuals();
+            }
+            this.euler = euler;
+            _modelTransform.rotation = euler.ToQuaternion();
         }
 
         public void AnimateShowOrder()
         {
-            if (_animateShowOrderCoroutine != null)
-            {
-                StopCoroutine(_animateShowOrderCoroutine);
-            }
+            StopAnimateShowOrderCoroutine();
             _animateShowOrderCoroutine = StartCoroutine(AnimateShowOrderCoroutine());
         }
 
         private IEnumerator AnimateShowOrderCoroutine()
         {
-            _xAxis.SetActive();
-            _yAxis.SetActive();
-            _zAxis.SetActive();
+            SetAxisActiveVisuals();
 
-            yield return UpdateTransform(rotationData.quaternion, Quaternion.identity, _backToIdentityAnimationTime);
+            yield return UpdateTransform(_modelTransform.rotation, Quaternion.identity, _backToIdentityAnimationTime);
 
-            _xAxis.SetNormal();
-            _yAxis.SetNormal();
-            _zAxis.SetNormal();
+            SetAxisNormalVisuals();
 
             yield return new WaitForSecondsRealtime(_animationPauseTime);
 
-            var xRotationData = new RotationVisualData(new Vector3(rotationData.euler.x, 0f, 0f), _xAxis);
-            var yRotationData = new RotationVisualData(new Vector3(0f, rotationData.euler.y, 0f), _yAxis);
-            var zRotationData = new RotationVisualData(new Vector3(0f, 0f, rotationData.euler.z), _zAxis);
+            var xRotationData = new RotationVisualData(new Vector3(euler.x, 0f, 0f), _xAxis);
+            var yRotationData = new RotationVisualData(new Vector3(0f, euler.y, 0f), _yAxis);
+            var zRotationData = new RotationVisualData(new Vector3(0f, 0f, euler.z), _zAxis);
 
-            switch (rotationData.euler.rotationOrder)
+            switch (euler.rotationOrder)
             {
                 case Euler.RotationOrder.XYZ:
                     yield return DoAxisRotations(xRotationData, yRotationData, zRotationData);
@@ -81,9 +76,7 @@ namespace Tools.RotationOrder.Example
                     break;
             }
 
-            _xAxis.SetActive();
-            _yAxis.SetActive();
-            _zAxis.SetActive();
+            SetAxisActiveVisuals();
         }
 
         private IEnumerator DoAxisRotations(params RotationVisualData[] rotationDataArray)
@@ -114,6 +107,31 @@ namespace Tools.RotationOrder.Example
             }
 
             _modelTransform.rotation = endRotation;
+        }
+
+        private void SetAxisActiveVisuals ()
+        {
+            _xAxis.SetActive();
+            _yAxis.SetActive();
+            _zAxis.SetActive();
+        }
+
+        private void SetAxisNormalVisuals ()
+        {
+            _xAxis.SetNormal();
+            _yAxis.SetNormal();
+            _zAxis.SetNormal();
+        }
+
+        private bool StopAnimateShowOrderCoroutine()
+        {
+            if (_animateShowOrderCoroutine != null)
+            {
+                StopCoroutine(_animateShowOrderCoroutine);
+                _animateShowOrderCoroutine = null;
+                return true;
+            }
+            return false;
         }
 
         private struct RotationVisualData
