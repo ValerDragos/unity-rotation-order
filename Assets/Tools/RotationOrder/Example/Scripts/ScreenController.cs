@@ -16,18 +16,15 @@ namespace Tools.RotationOrder.Example
         [SerializeField] private AngleAxisGroup _angleAxisGroup = null;
 
         [SerializeField] private Button _showRotationOrderButton = null;
-        [SerializeField] private Toggle _keepEulerToggle = null;
 
         private void Awake()
         {
-            Matrix4x4 matrix4x4 = _startEuler.ToRotationMatrix();
             Quaternion quaternion = _startEuler.ToQuaternion();
 
             _quaternionGroup.SetValueWithoutNotify(quaternion);
             _quaternionGroup.OnValueChanged += QuaternionGroup_OnValueChanged;
-           // _quaternionGroup.OnEndEdit += QuaternionGroup_OnEndEdit;
 
-            _matrix4x4Group.SetValueWithoutNotify(matrix4x4);
+            _matrix4x4Group.SetValueWithoutNotify(quaternion);
             _matrix4x4Group.OnValueChanged += Matrix4x4Group_OnValueChanged;
 
             _angleAxisGroup.SetValueWithoutNotify(quaternion);
@@ -51,21 +48,30 @@ namespace Tools.RotationOrder.Example
 
         private void AngleAxisGroup_OnValueChanged(Quaternion quaternion)
         {
-            foreach (var rotationVisualizationGroup in _rotationVisualizationGroups)
-            {
-                var euler = rotationVisualizationGroup.eulerGroup.euler;
-                euler = quaternion.ToEuler(euler.rotationOrder);
-                rotationVisualizationGroup.eulerGroup.SetEulerWithoutNotify(euler);
-                rotationVisualizationGroup.modelRotationVisualizer.SetEuler(euler);
-            }
+            SetRotationVisualizationGroups(quaternion);
 
-            var matrix4x4 = Matrix4x4.Rotate(quaternion);
             _quaternionGroup.SetValueWithoutNotify(quaternion);
-            _matrix4x4Group.SetValueWithoutNotify(matrix4x4);
+            _matrix4x4Group.SetValueWithoutNotify(quaternion);
         }
 
         private void QuaternionGroup_OnValueChanged(Quaternion quaternion)
         {
+            SetRotationVisualizationGroups(quaternion);
+
+            _matrix4x4Group.SetValueWithoutNotify(quaternion);
+            _angleAxisGroup.SetValueWithoutNotify(quaternion);
+        }
+
+        private void Matrix4x4Group_OnValueChanged(Quaternion quaternion)
+        {
+            SetRotationVisualizationGroups(quaternion);
+
+            _quaternionGroup.SetValueWithoutNotify(quaternion);
+            _angleAxisGroup.SetValueWithoutNotify(quaternion);
+        }
+
+        private void SetRotationVisualizationGroups (Quaternion quaternion)
+        {
             foreach (var rotationVisualizationGroup in _rotationVisualizationGroups)
             {
                 var euler = rotationVisualizationGroup.eulerGroup.euler;
@@ -73,64 +79,40 @@ namespace Tools.RotationOrder.Example
                 rotationVisualizationGroup.eulerGroup.SetEulerWithoutNotify(euler);
                 rotationVisualizationGroup.modelRotationVisualizer.SetEuler(euler);
             }
-
-            var matrix4x4 = Matrix4x4.Rotate(quaternion);
-            _matrix4x4Group.SetValueWithoutNotify(matrix4x4);
-            _angleAxisGroup.SetValueWithoutNotify(quaternion);
         }
 
-        private void Matrix4x4Group_OnValueChanged(Matrix4x4 matrix4x4)
-        {
-            foreach (var rotationVisualizationGroup in _rotationVisualizationGroups)
-            {
-                var euler = rotationVisualizationGroup.eulerGroup.euler;
-                euler = matrix4x4.ToEuler(euler.rotationOrder);
-                rotationVisualizationGroup.eulerGroup.SetEulerWithoutNotify(euler);
-                rotationVisualizationGroup.modelRotationVisualizer.SetEuler(euler);
-            }
-
-            var quaternion = Quaternion.LookRotation(matrix4x4.GetColumn(2), matrix4x4.GetColumn(1));
-            _quaternionGroup.SetValueWithoutNotify(quaternion);
-            _angleAxisGroup.SetValueWithoutNotify(quaternion);
-        }
-
-        //private void QuaternionGroup_OnEndEdit(Quaternion quaternion)
-        //{
-        //    quaternion.Normalize();
-        //    QuaternionGroup_OnValueChanged(quaternion);
-        //    _quaternionGroup.SetValueWithoutNotify(quaternion);
-        //}
-
-        // Work on this ... its verry messy
         private void EulerGroup_OnValuesChanged(EulerGroup eulerGroup, Euler previousEuler)
         {
             var euler = eulerGroup.euler;
             Matrix4x4 matrix4x4;
-            bool updateSelf = false;
             
-            if (!_keepEulerToggle.isOn && previousEuler.rotationOrder != euler.rotationOrder)
+            if (!eulerGroup.keepEuler && previousEuler.rotationOrder != euler.rotationOrder)
             {
                 matrix4x4 = previousEuler.ToRotationMatrix();
 
                 euler = Euler.FromRotationMatrix(matrix4x4, euler.rotationOrder);
-                updateSelf = true;
-            }
-            else
-            {
-                matrix4x4 = euler.ToRotationMatrix();
+                eulerGroup.SetEulerWithoutNotify(euler);
+                foreach (var rotationVisualizationGroup in _rotationVisualizationGroups)
+                {
+                    if (rotationVisualizationGroup.eulerGroup == eulerGroup)
+                    {
+                        rotationVisualizationGroup.modelRotationVisualizer.SetEuler(euler);
+                    }
+                    else
+                    {
+                        rotationVisualizationGroup.modelRotationVisualizer.ResetView();
+                    }
+                }
+                return;
             }
 
-            Quaternion quaternion = euler.ToQuaternion();
-
-            _quaternionGroup.SetValueWithoutNotify(quaternion);
-            _matrix4x4Group.SetValueWithoutNotify(matrix4x4);
-            _angleAxisGroup.SetValueWithoutNotify(quaternion);
+            matrix4x4 = euler.ToRotationMatrix();
 
             foreach (var rotationVisualizationGroup in _rotationVisualizationGroups)
             {
                 var otherEuler = rotationVisualizationGroup.eulerGroup.euler;
 
-                if (updateSelf || rotationVisualizationGroup.eulerGroup != eulerGroup)
+                if (rotationVisualizationGroup.eulerGroup != eulerGroup)
                 {
                     otherEuler = otherEuler.rotationOrder == euler.rotationOrder?
                         euler : Euler.FromRotationMatrix(matrix4x4, otherEuler.rotationOrder);
@@ -138,19 +120,13 @@ namespace Tools.RotationOrder.Example
                 }
                 rotationVisualizationGroup.modelRotationVisualizer.SetEuler(otherEuler);
             }
+
+            Quaternion quaternion = euler.ToQuaternion();
+
+            _quaternionGroup.SetValueWithoutNotify(quaternion);
+            _matrix4x4Group.SetValueWithoutNotify(matrix4x4);
+            _angleAxisGroup.SetValueWithoutNotify(quaternion);
         }
-
-        //private void UpdateGroup(RotationData rotationData, Panel to)
-        //{
-        //    var toRotationData = to.rotationData;
-        //    to.rotationData = ChangeRotationOrder(rotationData, toRotationData.euler.rotationOrder);
-        //}
-
-        //private Euler ChangeRotationOrder(Euler euler, Matrix4x4 matrix4x4, Euler.RotationOrder rotationOrder)
-        //{
-        //    if (euler.rotationOrder == rotationOrder) return euler;
-        //    return Euler.FromRotationMatrix(matrix4x4, rotationOrder);
-        //}
 
         [Serializable]
         private class RotationVisualizationGroup

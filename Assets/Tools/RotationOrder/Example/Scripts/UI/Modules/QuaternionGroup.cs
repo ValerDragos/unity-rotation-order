@@ -21,7 +21,6 @@ namespace Tools.RotationOrder.Example.UI
         }
 
         public event Action<Quaternion> OnValueChanged;
-        //public event Action<Quaternion> OnEndEdit;
 
         public void SetValueWithoutNotify(Quaternion quaternion)
         {
@@ -37,11 +36,6 @@ namespace Tools.RotationOrder.Example.UI
             _yFloatInputField.OnValueChanged += InputField_OnValueChanged;
             _zFloatInputField.OnValueChanged += InputField_OnValueChanged;
             _wFloatInputField.OnValueChanged += InputField_OnValueChanged;
-
-            //_xFloatInputField.OnEndEdit += InputField_OnEndEdit;
-            //_yFloatInputField.OnEndEdit += InputField_OnEndEdit;
-            //_zFloatInputField.OnEndEdit += InputField_OnEndEdit;
-            //_wFloatInputField.OnEndEdit += InputField_OnEndEdit;
         }
 
         private void InputField_OnValueChanged(float value)
@@ -49,14 +43,11 @@ namespace Tools.RotationOrder.Example.UI
             CallOnValueChanged();
         }
 
-        //private void InputField_OnEndEdit(float value)
-        //{
-        //    OnEndEdit?.Invoke(CreateQuaternion());
-        //}
-
         private Quaternion CreateQuaternion ()
         {
-            return new Quaternion(_xFloatInputField.value, _yFloatInputField.value, _zFloatInputField.value, _wFloatInputField.value);
+            var quaternion = new Quaternion(_xFloatInputField.value, _yFloatInputField.value, _zFloatInputField.value, _wFloatInputField.value);
+            quaternion.Normalize();
+            return quaternion;
         }
 
         private void CallOnValueChanged()

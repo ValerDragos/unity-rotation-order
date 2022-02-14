@@ -56,5 +56,5 @@ MonoBehaviour:
     name: W
     color: {r: 1, g: 0.88958925, b: 0.78431374, a: 1}
   _angle:
-    name: Angle
-    color: {r: 1, g: 0.8901961, b: 0.78431374, a: 1}
+    name: A
+    color: {r: 1, g: 0.78431374, b: 0.947753, a: 1}

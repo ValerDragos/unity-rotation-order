@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Tools.RotationOrder.Example.UI
 {
@@ -10,11 +11,13 @@ namespace Tools.RotationOrder.Example.UI
         [SerializeField] private Axis _xAxis = null;
         [SerializeField] private Axis _yAxis = null;
         [SerializeField] private Axis _zAxis = null;
+        [SerializeField] private Toggle _keepEulerToggle = null;
 
         private Euler _euler = new Euler();
         public Euler euler => _euler;
 
         public event ValuesChangedCallback OnValuesChanged;
+        public bool keepEuler => _keepEulerToggle.isOn;
 
         private void Awake()
         {

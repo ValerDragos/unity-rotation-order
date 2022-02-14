@@ -36,7 +36,12 @@ namespace Tools.RotationOrder.Example.UI
             }
         }
 
-        public event Action<Matrix4x4> OnValueChanged;
+        public event Action<Quaternion> OnValueChanged;
+
+        public void SetValueWithoutNotify (Quaternion quaternion)
+        {
+            SetValueWithoutNotify(Matrix4x4.Rotate(quaternion));
+        }
 
         public void SetValueWithoutNotify(Matrix4x4 matrix4x4)
         {
@@ -98,9 +103,17 @@ namespace Tools.RotationOrder.Example.UI
                 new Vector4(_component0x3.value, _component1x3.value, _component2x3.value, _component3x3.value));
         }
 
+        private Quaternion CreateQuaternion ()
+        {
+            var matrix4x4 = CreateMatrix4x4();
+            var quaternion = matrix4x4.ToQuaternion();
+            quaternion.Normalize();
+            return quaternion;
+        }
+
         private void CallOnValueChanged()
         {
-            OnValueChanged?.Invoke(CreateMatrix4x4());
+            OnValueChanged?.Invoke(CreateQuaternion());
         }
     }
 }

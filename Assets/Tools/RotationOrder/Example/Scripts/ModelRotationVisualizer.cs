@@ -24,14 +24,19 @@ namespace Tools.RotationOrder.Example
             SetAxisActiveVisuals();
         }
 
-        public void SetEuler(Euler euler)
+        public void ResetView()
         {
             if (StopAnimateShowOrderCoroutine())
             {
                 SetAxisActiveVisuals();
             }
-            this.euler = euler;
             _modelTransform.rotation = euler.ToQuaternion();
+        }
+
+        public void SetEuler(Euler euler)
+        {
+            this.euler = euler;
+            ResetView();
         }
 
         public void AnimateShowOrder()
