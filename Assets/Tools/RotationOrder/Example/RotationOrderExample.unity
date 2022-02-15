@@ -220,9 +220,10 @@ GameObject:
   m_Component:
   - component: {fileID: 817308864}
   - component: {fileID: 817308863}
+  - component: {fileID: 817308865}
   m_Layer: 0
   m_Name: BackgroundCamera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,6 +285,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &817308865
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 817308862}
+  m_Enabled: 1
 --- !u!1 &1087253685
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,22 +303,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1087253688}
   - component: {fileID: 1087253687}
-  - component: {fileID: 1087253686}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: UICamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1087253686
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087253685}
-  m_Enabled: 1
 --- !u!20 &1087253687
 Camera:
   m_ObjectHideFlags: 0
@@ -346,11 +346,11 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!4 &1087253688
@@ -1938,12 +1938,12 @@ PrefabInstance:
     - target: {fileID: 2416218994462095426, guid: e73196823688a2e40acc075a65a63aba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.0002594
+      value: 5.0003204
       objectReference: {fileID: 0}
     - target: {fileID: 3349164920997180076, guid: e73196823688a2e40acc075a65a63aba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.000183
+      value: 5.0002136
       objectReference: {fileID: 0}
     - target: {fileID: 3976127717700661901, guid: e73196823688a2e40acc075a65a63aba,
         type: 3}
@@ -2125,12 +2125,12 @@ PrefabInstance:
     - target: {fileID: 2416218994462095426, guid: e73196823688a2e40acc075a65a63aba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.0002594
+      value: 5.0003204
       objectReference: {fileID: 0}
     - target: {fileID: 3349164920997180076, guid: e73196823688a2e40acc075a65a63aba,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5.000183
+      value: 5.0002136
       objectReference: {fileID: 0}
     - target: {fileID: 3976127717700661901, guid: e73196823688a2e40acc075a65a63aba,
         type: 3}
