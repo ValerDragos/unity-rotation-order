@@ -1,10 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Tools.RotationOrder.Example.UI
 {
     public class Matrix4x4Group : MonoBehaviour
     {
+        [SerializeField] private Button _normalizeButton = null;
         [Header("Column 1")]
         [SerializeField] private FloatInputField _component0x0 = null;
         [SerializeField] private FloatInputField _component1x0 = null;
@@ -68,6 +70,11 @@ namespace Tools.RotationOrder.Example.UI
 
         private void Awake()
         {
+            _normalizeButton.onClick.AddListener(() =>
+            {
+                SetValueWithoutNotify(CreateNormalizedQuaternion());
+            });
+
             _component0x0.OnValueChanged += InputField_OnValueChanged;
             _component1x0.OnValueChanged += InputField_OnValueChanged;
             _component2x0.OnValueChanged += InputField_OnValueChanged;
@@ -103,7 +110,7 @@ namespace Tools.RotationOrder.Example.UI
                 new Vector4(_component0x3.value, _component1x3.value, _component2x3.value, _component3x3.value));
         }
 
-        private Quaternion CreateQuaternion ()
+        private Quaternion CreateNormalizedQuaternion ()
         {
             var matrix4x4 = CreateMatrix4x4();
             var quaternion = matrix4x4.ToQuaternion();
@@ -113,7 +120,7 @@ namespace Tools.RotationOrder.Example.UI
 
         private void CallOnValueChanged()
         {
-            OnValueChanged?.Invoke(CreateQuaternion());
+            OnValueChanged?.Invoke(CreateNormalizedQuaternion());
         }
     }
 }

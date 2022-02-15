@@ -936,7 +936,7 @@ MonoBehaviour:
     modelRotationVisualizer: {fileID: 1777380701}
   _quaternionGroup: {fileID: 1719126656}
   _matrix4x4Group: {fileID: 1569299030}
-  _angleAxisGroup: {fileID: 1695056047}
+  _axisAngleGroup: {fileID: 1695056047}
   _showRotationOrderButton: {fileID: 1232069599}
 --- !u!1001 &1613340004
 PrefabInstance:
@@ -2356,7 +2356,7 @@ PrefabInstance:
     - target: {fileID: 7740008633048457994, guid: 36f9d5efda3594647bcdb484dbf283d8,
         type: 3}
       propertyPath: m_NormalizedViewPortRect.x
-      value: 0.11197918
+      value: 0.10677084
       objectReference: {fileID: 0}
     - target: {fileID: 7740008633048457994, guid: 36f9d5efda3594647bcdb484dbf283d8,
         type: 3}
@@ -2366,7 +2366,7 @@ PrefabInstance:
     - target: {fileID: 7740008633048457994, guid: 36f9d5efda3594647bcdb484dbf283d8,
         type: 3}
       propertyPath: m_NormalizedViewPortRect.width
-      value: 0.2864583
+      value: 0.28645834
       objectReference: {fileID: 0}
     - target: {fileID: 7740008633048457994, guid: 36f9d5efda3594647bcdb484dbf283d8,
         type: 3}

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Tools.RotationOrder.Example.UI
 {
-    public class AngleAxisGroup : MonoBehaviour
+    public class AxisAngleGroup : MonoBehaviour
     {
         [SerializeField] private FloatInputField _xFloatInputField = null;
         [SerializeField] private FloatInputField _yFloatInputField = null;

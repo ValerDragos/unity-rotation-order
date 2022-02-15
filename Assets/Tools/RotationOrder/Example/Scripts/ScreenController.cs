@@ -13,7 +13,7 @@ namespace Tools.RotationOrder.Example
         [SerializeField] private List<RotationVisualizationGroup> _rotationVisualizationGroups = null;
         [SerializeField] private QuaternionGroup _quaternionGroup = null;
         [SerializeField] private Matrix4x4Group _matrix4x4Group = null;
-        [SerializeField] private AngleAxisGroup _angleAxisGroup = null;
+        [SerializeField] private AxisAngleGroup _axisAngleGroup = null;
 
         [SerializeField] private Button _showRotationOrderButton = null;
 
@@ -27,8 +27,8 @@ namespace Tools.RotationOrder.Example
             _matrix4x4Group.SetValueWithoutNotify(quaternion);
             _matrix4x4Group.OnValueChanged += Matrix4x4Group_OnValueChanged;
 
-            _angleAxisGroup.SetValueWithoutNotify(quaternion);
-            _angleAxisGroup.OnValueChanged += AngleAxisGroup_OnValueChanged;
+            _axisAngleGroup.SetValueWithoutNotify(quaternion);
+            _axisAngleGroup.OnValueChanged += AngleAxisGroup_OnValueChanged;
 
             foreach (var rotationVisualizationGroup in _rotationVisualizationGroups)
             {
@@ -59,7 +59,7 @@ namespace Tools.RotationOrder.Example
             SetRotationVisualizationGroups(quaternion);
 
             _matrix4x4Group.SetValueWithoutNotify(quaternion);
-            _angleAxisGroup.SetValueWithoutNotify(quaternion);
+            _axisAngleGroup.SetValueWithoutNotify(quaternion);
         }
 
         private void Matrix4x4Group_OnValueChanged(Quaternion quaternion)
@@ -67,7 +67,7 @@ namespace Tools.RotationOrder.Example
             SetRotationVisualizationGroups(quaternion);
 
             _quaternionGroup.SetValueWithoutNotify(quaternion);
-            _angleAxisGroup.SetValueWithoutNotify(quaternion);
+            _axisAngleGroup.SetValueWithoutNotify(quaternion);
         }
 
         private void SetRotationVisualizationGroups (Quaternion quaternion)
@@ -125,7 +125,7 @@ namespace Tools.RotationOrder.Example
 
             _quaternionGroup.SetValueWithoutNotify(quaternion);
             _matrix4x4Group.SetValueWithoutNotify(matrix4x4);
-            _angleAxisGroup.SetValueWithoutNotify(quaternion);
+            _axisAngleGroup.SetValueWithoutNotify(quaternion);
         }
 
         [Serializable]

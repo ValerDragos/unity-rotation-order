@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Tools.RotationOrder.Example.UI
 {
@@ -9,6 +10,8 @@ namespace Tools.RotationOrder.Example.UI
         [SerializeField] private FloatInputField _yFloatInputField = null;
         [SerializeField] private FloatInputField _zFloatInputField = null;
         [SerializeField] private FloatInputField _wFloatInputField = null;
+
+        [SerializeField] private Button _normalizeButton = null;
 
         public Quaternion quaternion
         {
@@ -36,6 +39,11 @@ namespace Tools.RotationOrder.Example.UI
             _yFloatInputField.OnValueChanged += InputField_OnValueChanged;
             _zFloatInputField.OnValueChanged += InputField_OnValueChanged;
             _wFloatInputField.OnValueChanged += InputField_OnValueChanged;
+
+            _normalizeButton.onClick.AddListener(() =>
+            {
+                SetValueWithoutNotify(CreateNormalizedQuaternion());
+            });
         }
 
         private void InputField_OnValueChanged(float value)
@@ -43,16 +51,21 @@ namespace Tools.RotationOrder.Example.UI
             CallOnValueChanged();
         }
 
-        private Quaternion CreateQuaternion ()
+        private Quaternion CreateQuaternion()
         {
-            var quaternion = new Quaternion(_xFloatInputField.value, _yFloatInputField.value, _zFloatInputField.value, _wFloatInputField.value);
+            return new Quaternion(_xFloatInputField.value, _yFloatInputField.value, _zFloatInputField.value, _wFloatInputField.value);
+        }
+
+        private Quaternion CreateNormalizedQuaternion ()
+        {
+            var quaternion = CreateQuaternion();
             quaternion.Normalize();
             return quaternion;
         }
 
         private void CallOnValueChanged()
         {
-            OnValueChanged?.Invoke(CreateQuaternion());
+            OnValueChanged?.Invoke(CreateNormalizedQuaternion());
         }
     }
 }
