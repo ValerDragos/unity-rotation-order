@@ -22,6 +22,8 @@ namespace Tools.RotationOrder
 
         public RotationOrder rotationOrder;
 
+        public Euler(Vector3 angles, RotationOrder rotationOrder) : this (angles.x, angles.y, angles.z, rotationOrder) { }
+
         public Euler(float x, float y, float z, RotationOrder rotationOrder)
         {
             this.x = x;
