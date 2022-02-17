@@ -8,9 +8,9 @@ namespace Tools.RotationOrder.Example.UI
         public delegate void ValuesChangedCallback (EulerGroup eulerGroup, Euler previousEuler);
 
         [SerializeField] private EulerRotationOrder _eulerRotationOrder = null;
-        [SerializeField] private Axis _xAxis = null;
-        [SerializeField] private Axis _yAxis = null;
-        [SerializeField] private Axis _zAxis = null;
+        [SerializeField] private AngleInput _xAxis = null;
+        [SerializeField] private AngleInput _yAxis = null;
+        [SerializeField] private AngleInput _zAxis = null;
         [SerializeField] private Toggle _keepEulerToggle = null;
 
         private Euler _euler = new Euler();
@@ -44,7 +44,7 @@ namespace Tools.RotationOrder.Example.UI
             _eulerRotationOrder.SetValueWithoutNotify(_euler.rotationOrder);
         }
         
-        private void Axis_OnValueChanged(Axis axis)
+        private void Axis_OnValueChanged(AngleInput axis)
         {
             var previousEuler = _euler;
             if (axis == _xAxis) _euler.x = axis.value;

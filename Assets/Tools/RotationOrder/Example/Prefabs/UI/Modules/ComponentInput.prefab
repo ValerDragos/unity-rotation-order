@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6794963408770639720}
   m_Layer: 5
-  m_Name: Axis
+  m_Name: ComponentInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,9 +87,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3280228a963ee454a89557b043edd4f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
   _settings: {fileID: 161784917330314746, guid: 0f8efeb61b68ecd46a385b34b2ea7514,
     type: 3}
+  _type: 0
 --- !u!222 &9083580490997813329
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -197,7 +197,7 @@ PrefabInstance:
     - target: {fileID: 1858660390927454340, guid: 80adf2cf9fe10aa47987955a38ab25dd,
         type: 3}
       propertyPath: m_Name
-      value: 'AxisInputField '
+      value: 'InputField '
       objectReference: {fileID: 0}
     - target: {fileID: 2846141131244608903, guid: 80adf2cf9fe10aa47987955a38ab25dd,
         type: 3}

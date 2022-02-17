@@ -24,7 +24,7 @@ PrefabInstance:
     - target: {fileID: 2459744837164256016, guid: c6d8396682dccfe40a117e0d04c535c8,
         type: 3}
       propertyPath: m_Name
-      value: AxisSlider
+      value: AngleSlider
       objectReference: {fileID: 0}
     - target: {fileID: 5636480122718072433, guid: c6d8396682dccfe40a117e0d04c535c8,
         type: 3}
@@ -157,6 +157,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6745694383829698528, guid: 3520a56cbe6c10c47a486726d564b4b4,
+        type: 3}
+      propertyPath: m_Name
+      value: AngleInputField
+      objectReference: {fileID: 0}
     - target: {fileID: 6794963408770639720, guid: 3520a56cbe6c10c47a486726d564b4b4,
         type: 3}
       propertyPath: m_Pivot.x
@@ -275,7 +280,7 @@ PrefabInstance:
     - target: {fileID: 8397165215795327488, guid: 3520a56cbe6c10c47a486726d564b4b4,
         type: 3}
       propertyPath: m_Name
-      value: AxisWithSlider
+      value: AngleInput
       objectReference: {fileID: 0}
     - target: {fileID: 9083580490997813335, guid: 3520a56cbe6c10c47a486726d564b4b4,
         type: 3}

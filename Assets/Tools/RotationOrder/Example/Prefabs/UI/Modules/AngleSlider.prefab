@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8766585944973873268}
   - component: {fileID: 227572100392102560}
   m_Layer: 5
-  m_Name: AxisSlider
+  m_Name: AngleSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

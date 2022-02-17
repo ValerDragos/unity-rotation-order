@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Tools.RotationOrder.Example.UI
 {
-    public class Axis : MonoBehaviour
+    public class AngleInput : MonoBehaviour
     {
         const int FULL_ROTATION_EULER = 360;
 
@@ -21,7 +21,7 @@ namespace Tools.RotationOrder.Example.UI
             }
         }
 
-        public event Action<Axis> OnValueChanged;
+        public event Action<AngleInput> OnValueChanged;
 
         private void Awake()
         {

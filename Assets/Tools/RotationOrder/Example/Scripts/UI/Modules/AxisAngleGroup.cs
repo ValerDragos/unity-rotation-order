@@ -9,7 +9,7 @@ namespace Tools.RotationOrder.Example.UI
         [SerializeField] private FloatInputField _xFloatInputField = null;
         [SerializeField] private FloatInputField _yFloatInputField = null;
         [SerializeField] private FloatInputField _zFloatInputField = null;
-        [SerializeField] private Axis _angle = null;
+        [SerializeField] private AngleInput _angle = null;
         [SerializeField] private Button _normalizeAxisButton = null;
 
         public Quaternion quaternion
@@ -47,7 +47,7 @@ namespace Tools.RotationOrder.Example.UI
             });
         }
 
-        private void Angle_OnValueChanged(Axis axis)
+        private void Angle_OnValueChanged(AngleInput axis)
         {
             InputField_OnValueChanged(axis.value);
         }

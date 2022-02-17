@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace Tools.RotationOrder.Example
+namespace Tools.RotationOrder.Example.UI
 {
     public class EulerRotationOrder : MonoBehaviour
     {
